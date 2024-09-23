@@ -1,13 +1,19 @@
 import axios from "axios";
 import { GoogleLocationResponse, Location } from "./types";
+import dotenv from "dotenv";
 
-const API_KEY = "AIzaSyCEgvAgYqxHiZMRnk5zrOCzwiENfyDIlKQ";
+dotenv.config();
+
+const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
 export const getGeoLocations = async (
   location: string
 ): Promise<Location | string> => {
   try {
+    if (!API_KEY) {
+      throw new Error("API key not found");
+    }
     const {
       data: { results: geoLocations },
     } = await axios.get<GoogleLocationResponse>(
