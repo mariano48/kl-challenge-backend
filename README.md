@@ -57,3 +57,4 @@ GOOGLE_MAPS_API_KEY=your-google-maps-api-key
 
 - Start development server: `npm run dev`
 - Start production server: `npm start`
+- Run tests: `npm run test`
