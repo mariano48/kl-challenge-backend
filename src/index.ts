@@ -9,6 +9,7 @@ server.use(cors());
 server.use(express.json());
 server.get("/movies", getMovies);
 server.get("/suggestions", getSuggestions);
+server.get("/", (req, res) => res.send("OK"));
 
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
