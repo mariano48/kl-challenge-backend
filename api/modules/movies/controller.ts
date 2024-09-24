@@ -24,7 +24,7 @@ export const getMovies = async (
       })
     );
   } catch (error) {
-    res.send(error.message);
+    res.status(400).send(error.message);
   }
 };
 
