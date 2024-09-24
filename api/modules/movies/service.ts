@@ -1,6 +1,11 @@
 import axios from "axios";
 import { IMovie, IMovieWithGeolocation } from "./types";
 import { getGeoLocations } from "../geolocations/service";
+import {
+  DEFAULT_LIMIT_QUERY_FOR_LOCATIONS,
+  DEFAULT_LIMIT_QUERY_FOR_SUGGESTIONS,
+  SAN_FRANCISCO_LOCATION,
+} from "./constants";
 
 const BASE_URL = "https://data.sfgov.org/resource/yitu-d5am.json";
 
@@ -50,7 +55,7 @@ const appendGeolocations = async (
 ): Promise<IMovieWithGeolocation[]> => {
   const geolocationPromises = movies.map(async (movie) => {
     const geolocation = await getGeoLocations(
-      movie.locations + " san francisco, ca"
+      `${movie.locations} ${SAN_FRANCISCO_LOCATION}`
     );
     return { ...movie, geolocation };
   });
@@ -61,9 +66,9 @@ const appendGeolocations = async (
 const generateQueryForLocations = (title: string) => {
   if (title) {
     const fixedTitle = title.replace(" ", "%20");
-    return `title=${fixedTitle}&$limit=30`;
+    return `title=${fixedTitle}&${DEFAULT_LIMIT_QUERY_FOR_LOCATIONS}`;
   } else {
-    return `$limit=30`;
+    return DEFAULT_LIMIT_QUERY_FOR_LOCATIONS;
   }
 };
 
@@ -71,7 +76,7 @@ const generateQueryForSuggestions = (title: string) => {
   if (title) {
     return `$query=SELECT title as movie SEARCH '${title}'`;
   } else {
-    return `$limit=10`;
+    return DEFAULT_LIMIT_QUERY_FOR_SUGGESTIONS;
   }
 };
 
