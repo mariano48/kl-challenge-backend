@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GoogleLocationResponse, Location } from "./types";
 
-const API_KEY = process.env.GOOGLE_MAPS_API_KEYS;
+const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
 export const getGeoLocations = async (
