@@ -23,6 +23,7 @@ export const getMoviesWithGeolocations = async ({
   }
 };
 
+/// Returns a list of movies based on the title of a movie
 export const getMovieLocations = async (title: string): Promise<IMovie[]> => {
   const fixedTitle = title.replace(" ", "%20");
   const query = generateQueryForLocations(fixedTitle);
@@ -33,6 +34,9 @@ export const getMovieLocations = async (title: string): Promise<IMovie[]> => {
     throw new Error(error.message);
   }
 };
+
+/// Returns a list of suggestions based on the title of a movie
+/// the response is an array of strings
 export const getMoviesSuggestionsFromQuery = async ({
   title,
 }: {
@@ -50,6 +54,7 @@ export const getMoviesSuggestionsFromQuery = async ({
   }
 };
 
+/// Appends coordinates to a list of movies by calling Google Maps Geocoding API
 const appendGeolocations = async (
   movies: IMovie[]
 ): Promise<IMovieWithGeolocation[]> => {
@@ -63,6 +68,8 @@ const appendGeolocations = async (
   return Promise.all(geolocationPromises);
 };
 
+/// Generates query string to filter by title of a movie
+/// based on the socrata docs (https://dev.socrata.com/docs/filtering.html)
 const generateQueryForLocations = (title: string) => {
   if (title) {
     const fixedTitle = title.replace(" ", "%20");
@@ -72,6 +79,8 @@ const generateQueryForLocations = (title: string) => {
   }
 };
 
+/// Generates query string to filter by title of a movie
+/// based on the socrata docs (https://dev.socrata.com/docs/queries/)
 const generateQueryForSuggestions = (title: string) => {
   if (title) {
     return `$query=SELECT title as movie SEARCH '${title}'`;
@@ -80,6 +89,7 @@ const generateQueryForSuggestions = (title: string) => {
   }
 };
 
+/// Removes repeated suggestions to avoid duplicates in the frontend
 const filterRepeatedSuggestions = (
   suggestions: { movie: string }[]
 ): string[] => {
