@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GoogleLocationResponse, Location } from "./types";
 
-const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+const API_KEY = process.env.GOOGLE_MAPS_API_KEYS;
 const BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
 export const getGeoLocations = async (
@@ -9,7 +9,7 @@ export const getGeoLocations = async (
 ): Promise<Location | string> => {
   try {
     if (!API_KEY) {
-      throw new Error("API key not found");
+      throw new Error("Missing API key");
     }
     const {
       data: { results: geoLocations },
@@ -23,7 +23,6 @@ export const getGeoLocations = async (
 
     return geoLocations[0].geometry.location;
   } catch (error) {
-    console.log(error.message);
     throw new Error(error.message);
   }
 };
