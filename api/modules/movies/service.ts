@@ -41,7 +41,6 @@ export const getMoviesSuggestionsFromQuery = async ({
 
     return filterRepeatedSuggestions(data);
   } catch (error) {
-    console.log(error.message);
     throw new Error(error.message);
   }
 };
