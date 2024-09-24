@@ -59,14 +59,12 @@ const appendGeolocations = async (
 };
 
 const generateQueryForLocations = (title: string) => {
-  let query: string = "";
   if (title) {
     const fixedTitle = title.replace(" ", "%20");
-    query = `title=${fixedTitle}`;
+    return `title=${fixedTitle}&$limit=30`;
   } else {
-    query = `$limit=30`;
+    return `$limit=30`;
   }
-  return query;
 };
 
 const generateQueryForSuggestions = (title: string) => {
