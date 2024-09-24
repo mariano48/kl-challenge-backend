@@ -10,7 +10,8 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "vercel-build": "echo hello"
   },
   "devDependencies": {
     "@types/node": "^22.5.5",
