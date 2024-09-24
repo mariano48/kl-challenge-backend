@@ -1,8 +1,5 @@
 import axios from "axios";
 import { GoogleLocationResponse, Location } from "./types";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 const BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
